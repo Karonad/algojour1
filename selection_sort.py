@@ -14,7 +14,8 @@ def selection(data):
     #     array2.append(min(array))
     #     array.remove(min(array))
     #     print(array2)
-
+    for i in range(0, len(array)):
+        array[i] = float(array[i])  
     for i in range(0, len(array)):
         smallest = i
         for j in range(i, len(array)):
@@ -24,9 +25,10 @@ def selection(data):
         nbIter += 1
         temp = array[i]
         array[i] = array[smallest]
-        array[smallest] = temp    
+        array[smallest] = temp
 
-
+    
+    array = [ '%g' % elem for elem in array ]
     endTime = time.time() - start_time
     print("Série : " + str(data))
     print("Résultat : " + separator.join(array))
