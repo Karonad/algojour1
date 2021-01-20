@@ -3,15 +3,11 @@ import sys
 import time
 
 
-def quick(data, isArray = True):
-    nbCompar = 0
-    nbIter = 0
-    if isArray == True:
-        array = data.split(';')
-        start_time = time.time()
-        separator = ";"
-    else:
-        array = data
+nbCompar = 0
+
+def quick_sort(array):
+
+    global nbCompar
 
     length = len(array)
 
@@ -23,18 +19,30 @@ def quick(data, isArray = True):
 
     items_lower = []
     items_greater = []
-    
+    nbCompar += 1
     for item in array:
-        if item > pivot:
+        if int(item) >= int(pivot):
             items_greater.append(item)
         else:
             items_lower.append(item)
-    
-    # print(quick(items_lower, False))
-    # print(quick(items_lower, False) + [pivot] + quick(items_greater, False))
-    result = quick(items_lower, False) + [pivot] + quick(items_greater, False)
-    print(result)
+    return quick_sort(items_lower) + \
+        [pivot] + quick_sort(items_greater)
+
+def main(data):
+
+    global nbCompar
+
+    array = data.split(';')
+    separator = ";"
+    start_time = time.time()
+
+    result = quick_sort(array)
+    execution_time = round(time.time() - start_time, 2)
+
+    print("Serie : " + sys.argv[1])
+    print("Resultat : " + separator.join(result))
+    print("Nb de comparaison : " + str(nbCompar))
+    print("Temps (sec) : " + str(execution_time))
 
 
-
-quick(sys.argv[1])
+main(sys.argv[1])
